@@ -350,7 +350,7 @@ const HomePage: React.FC = () => {
                                                 </div>
                                             </div>
                                             <div className="text-right">
-                                                <div className="text-2xl font-bold text-white">₹{bus.price?.toLocaleString('en-IN')}</div>
+                                                <div className="text-2xl font-bold text-white">₹{(bus.price || 1250).toLocaleString('en-IN')}</div>
                                                 <div className="text-xs text-slate-500">per seat</div>
                                             </div>
                                         </div>

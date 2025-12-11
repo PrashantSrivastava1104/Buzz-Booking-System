@@ -37,8 +37,12 @@ export class BookingRepository {
         return { ...(bus as Bus), seats: seats as Seat[] };
     }
 
-    async createBus(name: string, startTime: string, totalSeats: number): Promise<Bus> {
-        const result = db.prepare('INSERT INTO buses (name, start_time, total_seats) VALUES (?, ?, ?)').run(name, startTime, totalSeats);
+    async createBus(name: string, busType: string, fromCity: string, toCity: string, startTime: string, totalSeats: number, price: number, amenities: string): Promise<Bus> {
+        const result = db.prepare(`
+            INSERT INTO buses (name, bus_type, from_city, to_city, start_time, total_seats, price, amenities) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        `).run(name, busType, fromCity, toCity, startTime, totalSeats, price, amenities);
+
         const busId = Number(result.lastInsertRowid);
 
         // Create seats

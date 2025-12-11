@@ -79,7 +79,7 @@ const BookingPage: React.FC = () => {
 
     const calculateTotal = () => {
         if (!bus) return 0;
-        const basePrice = selectedSeats.length * (bus.price || 0);
+        const basePrice = selectedSeats.length * (bus.price || 1250);
         const mealPrice = passengers.filter(p => p.meal !== 'No Meal').length * 100; // ₹100 per meal
         return basePrice + mealPrice;
     };
