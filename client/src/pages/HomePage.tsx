@@ -101,9 +101,29 @@ const HomePage: React.FC = () => {
         return icons[amenity] || Star;
     };
 
-    // Get unique cities and bus types for filter dropdowns
-    const cities = Array.from(new Set(buses.flatMap(b => [b.from_city, b.to_city]).filter(Boolean)));
-    const busTypes = Array.from(new Set(buses.map(b => b.bus_type).filter(Boolean)));
+    // Static data for dropdowns to ensure they are never empty
+    const popularCities = [
+        'Mumbai', 'Delhi', 'Bangalore', 'Pune', 'Chennai', 'Hyderabad',
+        'Jaipur', 'Ahmedabad', 'Surat', 'Indore', 'Bhopal', 'Lucknow',
+        'Kanpur', 'Nagpur', 'Goa', 'Chandigarh', 'Kolkata', 'Visakhapatnam'
+    ];
+
+    const popularBusTypes = [
+        'AC Seater', 'AC Sleeper', 'Non-AC Seater', 'Non-AC Sleeper',
+        'Volvo Multi-Axle', 'Scania Multi-Axle', 'Mercedes Benz', 'Electric AC',
+        'Bharat Benz Sleeper', 'Volvo 9000 Multi-Axle'
+    ];
+
+    // Get unique cities and bus types for filter dropdowns (merge static + dynamic)
+    const cities = Array.from(new Set([
+        ...popularCities,
+        ...buses.flatMap(b => [b.from_city, b.to_city])
+    ].filter(Boolean))).sort();
+
+    const busTypes = Array.from(new Set([
+        ...popularBusTypes,
+        ...buses.map(b => b.bus_type)
+    ].filter(Boolean))).sort();
 
     if (loading) {
         return (
